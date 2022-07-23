@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  my-laravel-app-mysql:
+    image: 'mysql:8.0'
+    container_name: my-laravel-app-mysql
+    working_dir: /var/www/html
+    volumes:
+      - ./docker/database:/var/lib/mysql
+      - ./docker/mysql-files:/var/lib/mysql-files
+      - ./app:/var/www/html
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - 8107:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+  my-laravel-app-apache:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile.local
+    container_name: my-laravel-app
+    ports:
+     - "8181:80"
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html
+    links:
+      - my-laravel-app-mysql
