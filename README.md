@@ -3,6 +3,7 @@
 ## Start
 
 ```bash
+$ git clone https://github.com/hirouniverse/laravel-sample.git
 $ cd laravel-sample
 $ docker-compose up -d
 
