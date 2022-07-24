@@ -1,9 +1,13 @@
 <?php
 
+# Controllers
+use App\Http\Controllers\SampleController;
 use App\Http\Controllers\ApacheController;
+use App\Http\Controllers\CosmeController;
+
+# Route
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\SampleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +30,8 @@ Route::controller(SampleController::class)->group(function() {
 
 Route::controller(ApacheController::class)->group(function() {
     Route::get('/apache/rewrite-module', 'checkRewriteModule');
+});
+
+Route::controller(CosmeController::class)->group(function() {
+    Route::get('/cosme', 'index');
 });
