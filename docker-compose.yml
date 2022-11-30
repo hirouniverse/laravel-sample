@@ -5,7 +5,7 @@ services:
     container_name: my-laravel-app-mysql
     working_dir: /var/www/html
     volumes:
-      - ./docker/database:/var/lib/mysql
+      - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql-files:/var/lib/mysql-files
       - ./app:/var/www/html
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
