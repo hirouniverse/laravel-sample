@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Routing\Controller as BaseController;
+use App\Mail\ContactSendMail;
 
 class PostController extends BaseController
 {
@@ -63,12 +64,15 @@ class PostController extends BaseController
                 ->route('post.create')
                 ->withInput($inputs);
         } else {
-            // process your data
-            // $post = new Post;
-            // $post->title = $request->title;
-            // $post->description = $request->description;
-            // $post->save();
-            return $validated;
+            $request->session()->regenerateToken();
+
+            \Mail::to('hiro.kikuchi.universe@gmail.com')->send(new ContactSendMail($inputs));
+
+            $post = new Post;
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post->save();
+            return view('post.thanks');
         }
     }
 }
