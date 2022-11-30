@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ApacheController;
+use App\Http\Controllers\PostController;
+
+# Route
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SampleController;
@@ -26,4 +29,11 @@ Route::controller(SampleController::class)->group(function() {
 
 Route::controller(ApacheController::class)->group(function() {
     Route::get('/apache/rewrite-module', 'checkRewriteModule');
+});
+
+Route::controller(PostController::class)->group(function() {
+    Route::get('/post', 'index');
+    Route::get('/post/create', 'create')->name('post.create');
+    Route::post('/post/confirm', 'confirm');
+    Route::post('/post', 'store');
 });
